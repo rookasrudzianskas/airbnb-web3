@@ -22,7 +22,7 @@ export default function Home() {
     const [currentReserveListingID, setCurrentReserveListingID] = useState(null)
     const currentEditListing = useMemo(() => listings.find((listing) => listing.id === currentEditListingID), [currentEditListingID])
     const displayListings = useMemo(() => (showReservedListing ? listings.filter((listing) => listing.isReserved) : listings), [showReservedListing, listings])
-    
+
     const toggleShowReservedListing = () => {
         setShowReservedListing(!showReservedListing)
     }
@@ -105,7 +105,7 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>Airbnb Clone</title>
+                <title>Airbnb App</title>
             </Head>
             <Header connected={connected}/>
             <main className="pt-10 pb-20">
