@@ -63,7 +63,7 @@ export default function Home() {
                         distance: listing.distance.km,
                         price:price || listing.price.perNight,
                         imageURL: imageURL || listing.imageURL,
-                        distance: listing.distance,
+                        // distance: listing.distance,
                     }
                 }
                 return listing
