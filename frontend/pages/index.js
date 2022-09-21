@@ -61,10 +61,6 @@ export default function Home() {
         console.log(location, country, price, image, "BETTT",range)
     }
 
-    const unreserveListing = () => {
-
-    }
-
     return (
         <div>
             <Head>
