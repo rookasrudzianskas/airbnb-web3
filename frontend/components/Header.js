@@ -47,11 +47,11 @@ function Header({ connected, publicKey, initializeUser , initialized, transactio
 
                     <UserCircleIcon className="h-8 w-8" />
                 </div> */}
-                {initialized ? (<></>) : (<button type="button" className="border border-transparent cursor-pointer hover:bg-gray-100 rounded-full px-3 py-2" onClick={() => initializeUser()} disabled = {transactionPending}>
-                    Initialize
-                </button>)}
+                  {initialized ? (<></>) : (<button type="button" className="border border-transparent cursor-pointer hover:bg-gray-100 rounded-full px-3 py-2" onClick={() => initializeUser()} disabled = {transactionPending}>
+                        Initialize
+                    </button>)}  
                 <WalletMultiButton className="phantom-button" startIcon={<UserCircleIcon style={{ height: 32, width: 32, color: '#1f2937' }} />}>
-                    <span className="text-sm font-medium text-black">{connected ? 'Wallet Connected' : 'Connect Wallet'}</span>
+                    <span className="text-sm font-medium text-black">{connected ? truncate(publicKey.toString()) : 'Connect Wallet'}</span>
                 </WalletMultiButton>
             </div>
         </header>

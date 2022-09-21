@@ -33,7 +33,7 @@ export function useAirbnb() {
     // const program = new PublicKey(
     //     "8ktkADKMec8BE1q47k6LnMWqYpNTjqtinZ6ng219wMwf"
     //   );
-
+    
     const program = useMemo(() => {
         if (anchorWallet) {
             const provider = new anchor.AnchorProvider(connection, anchorWallet, anchor.AnchorProvider.defaultOptions())
@@ -42,7 +42,7 @@ export function useAirbnb() {
     }, [connection, anchorWallet])
 
 
-    useEffect(()=> {
+      useEffect(()=> {
 
         const start = async () => {
             if (program && publicKey && !transactionPending) {
@@ -55,7 +55,7 @@ export function useAirbnb() {
                         setInitialized(true)
                         setLoading(true)
 
-
+   
                         const listings =  await program.account.airbnbAccount.all();
                         const allBookings =  await program.account.bookingAccount.all();
                         setUser(profileAccount.toString())
@@ -74,7 +74,7 @@ export function useAirbnb() {
                     setLoading(false)
                 }
             }
-
+        
         }
 
         start()
@@ -154,7 +154,7 @@ export function useAirbnb() {
                         systemProgram: SystemProgram.programId,
                     })
                     .rpc()
-                toast.success('Successfully EDIT AIRBNB.')
+                    toast.success('Successfully EDIT AIRBNB.')
             } catch (error) {
                 console.error(error)
             } finally {
@@ -197,7 +197,7 @@ export function useAirbnb() {
     const bookAirbnb = async ({location, country, price, image},date) => {
         console.log(location, country, price, image, "BETTT")
 
-        const id = lastBookId + 1
+        const id = lastBookId + 1 
         if (program && publicKey) {
             try {
                 setLoading(true)

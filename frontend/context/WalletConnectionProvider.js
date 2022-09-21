@@ -17,4 +17,4 @@ const WalletConnectionProvider = ({ children }) => {
     )
 }
 
-export default WalletConnectionProvider;
+export default WalletConnectionProvider
