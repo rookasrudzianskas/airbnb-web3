@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Airbnb Clone</title>
+                <title>Airbnb App</title>
             </Head>
                 <Component {...pageProps} />
         </>
