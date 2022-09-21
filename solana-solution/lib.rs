@@ -13,7 +13,7 @@ pub mod clever_airbnb {
         ctx: Context<InitializeUser>
     ) -> Result<()> {
         // Initialize user profile with default data
-
+  
         let user_profile = &mut ctx.accounts.user_profile;
         user_profile.authority = ctx.accounts.authority.key();
         user_profile.last_airbnb = 0;
@@ -23,9 +23,9 @@ pub mod clever_airbnb {
     }
 
     pub fn add_airbnb(
-        ctx: Context<AddAirbnb>,
-        location: String,
-        country: String,
+        ctx: Context<AddAirbnb>, 
+        location: String, 
+        country: String, 
         price: String,
         img: String,
     ) -> Result<()> {
@@ -55,10 +55,10 @@ pub mod clever_airbnb {
     }
 
     pub fn update_airbnb(
-        ctx: Context<UpdateAirbnb>,
+        ctx: Context<UpdateAirbnb>, 
         airbnb_idx: u8,
-        location: String,
-        country: String,
+        location: String, 
+        country: String, 
         price: String,
         img: String,
     ) -> Result<()> {
@@ -91,13 +91,13 @@ pub mod clever_airbnb {
         ctx: Context<BookAirbnb>,
         idx: u8,
         date: String,
-        location: String,
-        country: String,
+        location: String, 
+        country: String, 
         price: String,
         img: String,
     ) -> Result<()> {
         let booking_account = &mut ctx.accounts.booking_account;
-
+        
         // // Fill contents with argument
         booking_account.authority = ctx.accounts.authority.key();
         booking_account.idx = idx;
@@ -108,7 +108,7 @@ pub mod clever_airbnb {
         booking_account.image = img;
         booking_account.isReserved = true;
 
-
+        
         Ok(())
     }
 
@@ -126,11 +126,11 @@ pub struct InitializeUser<'info> {
     pub authority: Signer<'info>,
 
     #[account(
-    init,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    payer = authority,
-    space = 8 + std::mem::size_of::<UserProfile>(),
+        init,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        payer = authority,
+        space = 8 + std::mem::size_of::<UserProfile>(),
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
 
@@ -141,19 +141,19 @@ pub struct InitializeUser<'info> {
 #[instruction()]
 pub struct AddAirbnb<'info> {
     #[account(
-    mut,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
 
     #[account(
-    init,
-    seeds = [AIRBNB_TAG, authority.key().as_ref(), &[user_profile.last_airbnb]],
-    bump,
-    payer = authority,
-    space = 2865 + 8,
+        init,
+        seeds = [AIRBNB_TAG, authority.key().as_ref(), &[user_profile.last_airbnb]],
+        bump,
+        payer = authority,
+        space = 2865 + 8,
     )]
     pub airbnb_account: Box<Account<'info, AirbnbAccount>>,
 
@@ -167,18 +167,18 @@ pub struct AddAirbnb<'info> {
 #[instruction(airbnb_idx: u8)]
 pub struct UpdateAirbnb<'info> {
     #[account(
-    mut,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
 
     #[account(
-    mut,
-    seeds = [AIRBNB_TAG, authority.key().as_ref(), &[airbnb_idx].as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [AIRBNB_TAG, authority.key().as_ref(), &[airbnb_idx].as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub airbnb_account: Box<Account<'info, AirbnbAccount>>,
 
@@ -192,19 +192,19 @@ pub struct UpdateAirbnb<'info> {
 #[instruction(airbnb_idx: u8)]
 pub struct RemoveAirbnb<'info> {
     #[account(
-    mut,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
-
+ 
     #[account(
-    mut,
-    close = authority,
-    seeds = [AIRBNB_TAG, authority.key().as_ref(), &[airbnb_idx].as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        close = authority,
+        seeds = [AIRBNB_TAG, authority.key().as_ref(), &[airbnb_idx].as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub airbnb_account: Box<Account<'info, AirbnbAccount>>,
 
@@ -244,19 +244,19 @@ pub struct RemoveAirbnb<'info> {
 #[instruction()]
 pub struct BookAirbnb<'info> {
     #[account(
-    mut,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
-
+    
     #[account(
-    init,
-    seeds = [BOOK_TAG, authority.key().as_ref() ],
-    bump,
-    payer = authority,
-    space = 3125 + 8,
+        init,
+        seeds = [BOOK_TAG, authority.key().as_ref() ],
+        bump,
+        payer = authority,
+        space = 3125 + 8,
     )]
     pub booking_account: Box<Account<'info, BookingAccount>>,
 
@@ -269,19 +269,19 @@ pub struct BookAirbnb<'info> {
 #[derive(Accounts)]
 pub struct CancelBook<'info> {
     #[account(
-    mut,
-    seeds = [USER_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub user_profile: Box<Account<'info, UserProfile>>,
-
+ 
     #[account(
-    mut,
-    close = authority,
-    seeds = [BOOK_TAG, authority.key().as_ref()],
-    bump,
-    has_one = authority,
+        mut,
+        close = authority,
+        seeds = [BOOK_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority,
     )]
     pub booking_account: Box<Account<'info, BookingAccount>>,
 
